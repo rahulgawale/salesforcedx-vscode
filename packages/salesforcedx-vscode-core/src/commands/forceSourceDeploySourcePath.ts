@@ -13,25 +13,15 @@ import {
   ContinueResponse,
   ParametersGatherer
 } from '@salesforce/salesforcedx-utils-vscode/out/src/types';
-import {
-  RegistryAccess,
-  registryData
-} from '@salesforce/source-deploy-retrieve';
-import * as path from 'path';
 import * as vscode from 'vscode';
 import { channelService } from '../channels';
 import { nls } from '../messages';
 import { notificationService } from '../notifications';
-import { DeployQueue, sfdxCoreSettings } from '../settings';
+import { DeployQueue } from '../settings';
+import { SfdxProjectConfig } from '../sfdxProject';
 import { telemetryService } from '../telemetry';
 import { BaseDeployExecutor, DeployType } from './baseDeployCommand';
 import { SourcePathChecker } from './forceSourceRetrieveSourcePath';
-import {
-  APEX_CLASS_EXTENSION,
-  APEX_TRIGGER_EXTENSION,
-  VISUALFORCE_COMPONENT_EXTENSION,
-  VISUALFORCE_PAGE_EXTENSION
-} from './templates/metadataTypeConstants';
 import { FilePathGatherer, SfdxCommandlet, SfdxWorkspaceChecker } from './util';
 import { LibraryCommandletExecutor } from './util/libraryCommandlet';
 import { useBetaDeployRetrieve } from './util/useBetaDeployRetrieve';
@@ -109,7 +99,7 @@ export async function forceSourceDeployMultipleSourcePaths(uris: vscode.Uri[]) {
 
 export class LibraryDeploySourcePathExecutor extends LibraryCommandletExecutor<
   string
-  > {
+> {
   public async execute(response: ContinueResponse<string>): Promise<void> {
     this.setStartTime();
 
@@ -127,8 +117,13 @@ export class LibraryDeploySourcePathExecutor extends LibraryCommandletExecutor<
         this.sourceClient.tooling.deployWithPaths
       );
 
+      const projectNamespace = (await SfdxProjectConfig.getValue(
+        'namespace'
+      )) as string;
+
       await this.sourceClient.tooling.deployWithPaths({
-        paths: [response.data]
+        paths: [response.data],
+        namespace: projectNamespace
       });
       this.logMetric();
     } catch (e) {

@@ -23,7 +23,7 @@ import { channelService } from '../channels';
 import { nls } from '../messages';
 import { notificationService } from '../notifications';
 import { sfdxCoreSettings } from '../settings';
-import { SfdxPackageDirectories } from '../sfdxProject';
+import { SfdxPackageDirectories, SfdxProjectConfig } from '../sfdxProject';
 import { telemetryService } from '../telemetry';
 import {
   FilePathGatherer,
@@ -36,7 +36,7 @@ import { useBetaDeployRetrieve } from './util/useBetaDeployRetrieve';
 
 export class ForceSourceRetrieveSourcePathExecutor extends SfdxCommandletExecutor<
   string
-  > {
+> {
   public build(sourcePath: string): Command {
     return new SfdxCommandBuilder()
       .withDescription(nls.localize('force_source_retrieve_text'))
@@ -115,7 +115,7 @@ export async function forceSourceRetrieveSourcePath(explorerPath: vscode.Uri) {
 
 export class LibraryRetrieveSourcePathExecutor extends LibraryCommandletExecutor<
   string
-  > {
+> {
   public async execute(response: ContinueResponse<string>): Promise<void> {
     this.setStartTime();
 
@@ -132,8 +132,13 @@ export class LibraryRetrieveSourcePathExecutor extends LibraryCommandletExecutor
       this.sourceClient.tooling.retrieveWithPaths = this.retrieveWrapper(
         this.sourceClient.tooling.retrieveWithPaths
       );
+      const projectNamespace = (await SfdxProjectConfig.getValue(
+        'namespace'
+      )) as string;
+
       const retrieveOpts = {
-        paths: [response.data]
+        paths: [response.data],
+        namespace: projectNamespace
       };
       await this.sourceClient.tooling.retrieveWithPaths(retrieveOpts);
       this.logMetric();
