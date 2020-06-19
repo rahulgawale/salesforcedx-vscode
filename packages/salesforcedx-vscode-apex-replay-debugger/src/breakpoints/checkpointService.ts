@@ -75,13 +75,13 @@ export class CheckpointService implements TreeDataProvider<BaseNode> {
   private static instance: CheckpointService;
   private checkpoints: CheckpointNode[];
   private _onDidChangeTreeData: EventEmitter<
-    BaseNode | undefined
-  > = new EventEmitter<BaseNode | undefined>();
+    BaseNode | undefined | void
+  > = new EventEmitter<BaseNode | undefined | void>();
   private myRequestService: RequestService;
   private orgInfo!: OrgInfo;
   private sfdxProject: string | null = null;
 
-  public readonly onDidChangeTreeData: Event<BaseNode | undefined> = this
+  public readonly onDidChangeTreeData: Event<BaseNode | undefined | void> = this
     ._onDidChangeTreeData.event;
 
   public constructor() {

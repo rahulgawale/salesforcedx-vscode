@@ -36,8 +36,8 @@ const NO_TESTS_DESCRIPTION = nls.localize(
 export class ApexTestOutlineProvider
   implements vscode.TreeDataProvider<TestNode> {
   private onDidChangeTestData: vscode.EventEmitter<
-    TestNode | undefined
-  > = new vscode.EventEmitter<TestNode | undefined>();
+    TestNode | undefined | void
+  > = new vscode.EventEmitter<TestNode | undefined | void>();
   public onDidChangeTreeData = this.onDidChangeTestData.event;
 
   private apexTestMap: Map<string, TestNode> = new Map<string, TestNode>();

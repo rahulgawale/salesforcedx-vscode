@@ -4,17 +4,19 @@
  * Licensed under the BSD 3-Clause license.
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
-import { Extension, ExtensionKind } from 'vscode';
+import { Extension, ExtensionKind, Uri } from 'vscode';
 export class MockApexExtension implements Extension<any> {
   public extensionKind = ExtensionKind.Workspace;
   constructor() {
     this.id = 'salesforce.salesforcedx-vscode-apex';
     this.extensionPath = 'extension/local/path';
+    this.extensionUri = Uri.file(this.extensionPath);
     this.isActive = true;
     this.exports = new MockJorje();
   }
   public id: string;
   public extensionPath: string;
+  public extensionUri: Uri;
   public isActive: boolean;
   public packageJSON: any;
   public activate(): Thenable<any> {
