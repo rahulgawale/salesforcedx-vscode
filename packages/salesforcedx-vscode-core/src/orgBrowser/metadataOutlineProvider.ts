@@ -25,10 +25,10 @@ export class MetadataOutlineProvider
   private toRefresh: boolean = false;
 
   private internalOnDidChangeTreeData: vscode.EventEmitter<
-    BrowserNode | undefined
+    BrowserNode | undefined | void
   > = new vscode.EventEmitter<BrowserNode | undefined>();
   public readonly onDidChangeTreeData: vscode.Event<
-    BrowserNode | undefined
+    BrowserNode | undefined | void
   > = this.internalOnDidChangeTreeData.event;
 
   constructor(defaultOrg: string | undefined) {

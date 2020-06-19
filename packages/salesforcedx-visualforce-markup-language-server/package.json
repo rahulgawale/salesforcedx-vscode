@@ -15,14 +15,15 @@
   "devDependencies": {
     "@types/chai": "^4.0.0",
     "@types/mocha": "^2.2.38",
-    "@types/node": "8.9.3",
+    "@types/node": "^13.11.0",
+    "@types/vscode": "^1.46.0",
     "chai": "^4.0.2",
     "mocha": "^5",
     "mocha-junit-reporter": "^1.23.3",
     "mocha-multi-reporters": "^1.1.7",
     "nyc": "^13",
     "shx": "0.2.2",
-    "typescript": "3.1.6"
+    "typescript": "3.9.5"
   },
   "dependencies": {
     "vscode-languageserver-types": "3.4.0",

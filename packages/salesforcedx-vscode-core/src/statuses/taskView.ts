@@ -20,10 +20,10 @@ export class TaskViewService implements TreeDataProvider<Task> {
   private static instance: TaskViewService;
   private readonly tasks: Task[];
   private _onDidChangeTreeData: EventEmitter<
-    Task | undefined
-  > = new EventEmitter<Task | undefined>();
+    Task | undefined | void
+  > = new EventEmitter<Task | undefined | void>();
 
-  public readonly onDidChangeTreeData: Event<Task | undefined> = this
+  public readonly onDidChangeTreeData: Event<Task | undefined | void> = this
     ._onDidChangeTreeData.event;
 
   public constructor() {

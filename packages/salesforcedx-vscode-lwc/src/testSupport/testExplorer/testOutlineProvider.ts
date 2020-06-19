@@ -34,9 +34,7 @@ function getLabelFromTestFileInfo(testFileInfo: TestFileInfo) {
  */
 export class SfdxTestOutlineProvider
   implements vscode.TreeDataProvider<TestNode>, vscode.Disposable {
-  private onDidChangeTestData: vscode.EventEmitter<
-    TestNode | undefined
-  > = new vscode.EventEmitter<TestNode | undefined>();
+  private onDidChangeTestData = new vscode.EventEmitter<void>();
   public onDidChangeTreeData = this.onDidChangeTestData.event;
   private disposables: vscode.Disposable[];
 

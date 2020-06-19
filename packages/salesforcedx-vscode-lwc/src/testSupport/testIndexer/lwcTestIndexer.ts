@@ -35,11 +35,9 @@ class LwcTestIndexer implements Indexer, vscode.Disposable {
     'lwcTestErrors'
   );
   private onDidUpdateTestResultsIndexEventEmitter = new vscode.EventEmitter<
-    undefined
+    void
   >();
-  private onDidUpdateTestIndexEventEmitter = new vscode.EventEmitter<
-    undefined
-  >();
+  private onDidUpdateTestIndexEventEmitter = new vscode.EventEmitter<void>();
   public onDidUpdateTestResultsIndex = this
     .onDidUpdateTestResultsIndexEventEmitter.event;
   public onDidUpdateTestIndex = this.onDidUpdateTestIndexEventEmitter.event;

@@ -12,10 +12,10 @@ export class ConflictOutlineProvider
   private root: ConflictGroupNode | null;
 
   private internalOnDidChangeTreeData: vscode.EventEmitter<
-    ConflictNode | undefined
-  > = new vscode.EventEmitter<ConflictNode | undefined>();
+    ConflictNode | undefined | void
+  > = new vscode.EventEmitter<void>();
   public readonly onDidChangeTreeData: vscode.Event<
-    ConflictNode | undefined
+    ConflictNode | undefined | void
   > = this.internalOnDidChangeTreeData.event;
 
   public constructor() {
